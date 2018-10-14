@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
-import Redium, { StyleRoot } from 'radium';
+import classes from './App.module.css';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -62,10 +61,6 @@ class App extends Component {
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
     }
 
     let persons = null;
@@ -91,32 +86,30 @@ class App extends Component {
       }
     }
     
-    const classes = [];
+    const assinedClasses = [];
 
     if (this.state.persons.length <= 2) {
-      classes.push('red')
+      assinedClasses.push(classes.red)
     }
     if (this.state.persons.length <= 1) {
-      classes.push('bold')
+      assinedClasses.push(classes.red)
     }
 
     return (
-      <StyleRoot>
-        <div className="App">
-          <h1>Hi, I'm a React App</h1>
-          <p className={classes.join(' ')}>This is really working!</p>
-          <button 
-            style={style}
-            onClick={this.togglePersonsHandler}>
-            Toggle Persons
-          </button>
-          { persons }
-        </div>
-      </StyleRoot>
+      <div className={classes.App}>
+        <h1>Hi, I'm a React App</h1>
+        <p className={assinedClasses.join(' ')}>This is really working!</p>
+        <button 
+          style={style}
+          onClick={this.togglePersonsHandler}>
+          Toggle Persons
+        </button>
+        { persons }
+      </div>
       // <h1>Another heading</h1>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m a React App!!!'));
   }
 }
 
-export default Redium(App);
+export default App;
