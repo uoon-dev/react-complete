@@ -5,6 +5,7 @@ class Persons extends Component {
   constructor(props) {
     super(props);
     console.log('[Persons.js] Inside Constructor', props);
+    this.lastPersonRef = React.createRef();
   }
 
   componentWillMount() {
@@ -13,6 +14,7 @@ class Persons extends Component {
 
   componentDidMount() {
     console.log('[Persons.js] Inside componentDidMount()');
+    this.lastPersonRef.current.focus();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -21,10 +23,10 @@ class Persons extends Component {
   
   shouldComponentUpdate(nextProps, nextStates) {
     console.log('[UPDATE Persons.js] Inside shouldComponentUpdate()', nextProps, nextStates);
-    return nextProps.persons !== this.props.persons ||
-      nextProps.changed !== this.props.changed ||
-      nextProps.clicked !== this.props.clicked;
-    // return true;
+    // return nextProps.persons !== this.props.persons ||
+    //   nextProps.changed !== this.props.changed ||
+    //   nextProps.clicked !== this.props.clicked;
+    return true;
   }
   
   componentWillUpdate(nextProps, nextStates) {
@@ -44,6 +46,8 @@ class Persons extends Component {
         name={person.name} 
         position={index}
         age={person.age}
+        // authenticated={this.props.isAuthenticated}
+        ref={this.lastPersonRef}
         key={person.id}
         changed={(event) => this.props.changed(event, person.id)}/>
     })
