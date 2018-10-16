@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Cockpit.module.css';
-import Aux from '../../hoc/Aux';
+import Auxiliary from '../../hoc/Auxiliary';
 
 const cockpit = (props) => {
     const assinedClasses = [];
@@ -18,7 +18,7 @@ const cockpit = (props) => {
     }
 
     return (
-        <Aux>
+        <Auxiliary>
             <div>
                 <h1>{props.appTitle}</h1>
                 <p className={assinedClasses.join(' ')}>This is really working!</p>
@@ -27,7 +27,7 @@ const cockpit = (props) => {
                     Toggle Persons
                 </button>
             </div>
-        </Aux>
+        </Auxiliary>
     );
 }
 
