@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classes from './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import Auxiliary from '../hoc/Auxiliary';
+import withClass from '../hoc/withClass';
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props) {
     super(props);
     console.log('[App.js] Inside Constructor', props);
@@ -28,13 +30,15 @@ class App extends Component {
     console.log('[UPDATE App.js] Inside componentWillReceiveProps()', nextProps);
   }
   
-  shouldComponentUpdate(nextProps, nextStates) {
-    console.log('[UPDATE App.js] Inside shouldComponentUpdate()', nextProps, nextStates);
-    return true;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('[UPDATE App.js] Inside shouldComponentUpdate()', nextProps, nextState);
+  //   return nextState.persons !== this.state.persons ||
+  //     nextState.showPersons !== this.state.showPersons;
+  //   // return true;
+  // }
   
-  componentWillUpdate(nextProps, nextStates) {
-    console.log('[UPDATE App.js] Inside componentWillUpdate()', nextProps, nextStates);
+  componentWillUpdate(nextProps, nextState) {
+    console.log('[UPDATE App.js] Inside componentWillUpdate()', nextProps, nextState);
   }
   
   componentDidUpdate() {
@@ -105,18 +109,19 @@ class App extends Component {
     }
 
     return (
-      <div className={classes.App}>
+      <Auxiliary>
+        <button onClick={() => { this.setState({showPersons: true}); }}>Show Persons</button>
         <Cockpit
           appTitle={this.props.title}
           showPersons={this.state.showPersons} 
           persons={this.state.persons}
           clicked={this.togglePersonsHandler}/>
         { persons }
-      </div>
+      </Auxiliary>
       // <h1>Another heading</h1>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m a React App!!!'));
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
